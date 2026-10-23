@@ -1,0 +1,5 @@
+Model,MAE,RMSE,R2,MAPE %
+Naive: same as last week,91423.096,144038.465,0.945,8.419
+Naive: same week last year,75415.632,106155.611,0.97,6.811
+Linear Regression,67352.812,92171.806,0.978,6.676
+Random Forest,64897.017,94074.022,0.977,5.928
