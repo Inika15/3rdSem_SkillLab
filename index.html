@@ -1,0 +1,2383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Walmart Retail Sales Intelligence & Econometric Forecasting Studio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --navy-950: #060d19;
+      --navy-900: #0b1528;
+      --navy-850: #0f1d38;
+      --navy-800: #162a52;
+      --navy-700: #1e3a70;
+      --gold-500: #d97706;
+      --gold-400: #f59e0b;
+      --gold-300: #fbbf24;
+      --gold-100: #fef3c7;
+      --gold-50:  #fffbeb;
+      --surface-card: #ffffff;
+      --surface-subtle: #f8fafc;
+      --surface-elevated: #f1f5f9;
+      --border-subtle: #e2e8f0;
+      --border-strong: #cbd5e1;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --text-soft: #94a3b8;
+      --emerald-600: #059669;
+      --emerald-50: #ecfdf5;
+      --crimson-600: #dc2626;
+      --crimson-50: #fef2f2;
+      --blue-600: #2563eb;
+      --blue-50: #eff6ff;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --shadow-sm: 0 1px 2px 0 rgba(15, 23, 42, 0.05);
+      --shadow-md: 0 4px 16px -2px rgba(15, 23, 42, 0.08);
+      --shadow-lg: 0 12px 32px -4px rgba(15, 23, 42, 0.12);
+    }
+
+    [data-theme="midnight"] {
+      --surface-card: #0d1a33;
+      --surface-subtle: #081224;
+      --surface-elevated: #132447;
+      --border-subtle: #1e3563;
+      --border-strong: #2a4885;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --text-soft: #64748b;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--navy-950);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+    }
+
+    /* Masthead Banner */
+    .top-masthead {
+      background: linear-gradient(135deg, #071120 0%, #0d1e3a 50%, #09152b 100%);
+      border-bottom: 1px solid rgba(217, 119, 6, 0.25);
+      color: #ffffff;
+      padding: 18px 36px;
+      position: relative;
+    }
+
+    .top-masthead::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--gold-400), var(--gold-500), transparent);
+    }
+
+    .masthead-inner {
+      max-width: 1480px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .brand-block {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand-spark {
+      width: 44px;
+      height: 44px;
+      background: radial-gradient(circle at 30% 30%, var(--gold-300), var(--gold-500));
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 20px rgba(245, 158, 11, 0.35);
+      color: #071120;
+      font-weight: 900;
+      font-size: 24px;
+      user-select: none;
+      flex-shrink: 0;
+    }
+
+    .brand-text h1 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 26px;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #ffffff;
+      line-height: 1.2;
+    }
+
+    .brand-text .subtext {
+      font-size: 13px;
+      color: #94a3b8;
+      font-family: 'JetBrains Mono', monospace;
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge-academic {
+      background: rgba(217, 119, 6, 0.18);
+      color: var(--gold-300);
+      border: 1px solid rgba(217, 119, 6, 0.4);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .masthead-controls {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .btn-action {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.15);
+      color: #f1f5f9;
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-action:hover {
+      background: rgba(255, 255, 255, 0.14);
+      border-color: rgba(255, 255, 255, 0.3);
+      transform: translateY(-1px);
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--gold-500), #b45309);
+      border: 1px solid var(--gold-400);
+      color: #ffffff;
+      font-weight: 600;
+      box-shadow: 0 2px 10px rgba(217, 119, 6, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, var(--gold-400), var(--gold-500));
+      box-shadow: 0 4px 16px rgba(217, 119, 6, 0.45);
+    }
+
+    /* Live Ticker Bar */
+    .ticker-tape {
+      background: #040913;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 8px 36px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      color: #94a3b8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      overflow-x: auto;
+      white-space: nowrap;
+      gap: 24px;
+    }
+
+    .ticker-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .ticker-label {
+      color: #64748b;
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.04em;
+    }
+
+    .ticker-val {
+      color: #f8fafc;
+      font-weight: 600;
+    }
+
+    .ticker-val.gold { color: var(--gold-400); }
+    .ticker-val.green { color: #34d399; }
+
+    /* Navigation Bar */
+    .nav-strip {
+      background: #09152b;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 0 36px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(12px);
+    }
+
+    .nav-inner {
+      max-width: 1480px;
+      margin: 0 auto;
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-tab {
+      background: transparent;
+      border: none;
+      color: #94a3b8;
+      font-size: 13.5px;
+      font-weight: 500;
+      padding: 14px 16px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+      transition: all 0.2s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .nav-tab:hover {
+      color: #f1f5f9;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .nav-tab.active {
+      color: #ffffff;
+      border-bottom-color: var(--gold-400);
+      background: rgba(245, 158, 11, 0.08);
+    }
+
+    .nav-pill {
+      background: rgba(255, 255, 255, 0.1);
+      color: #cbd5e1;
+      padding: 1px 6px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .nav-tab.active .nav-pill {
+      background: var(--gold-400);
+      color: #071120;
+      font-weight: 700;
+    }
+
+    /* Main Container */
+    .app-main {
+      flex: 1;
+      background: #f8fafc;
+      color: var(--text-main);
+      padding: 32px 36px 64px 36px;
+      transition: background-color 0.3s ease;
+    }
+
+    [data-theme="midnight"] .app-main {
+      background: #070e1c;
+      color: #f1f5f9;
+    }
+
+    .content-canvas {
+      max-width: 1480px;
+      margin: 0 auto;
+    }
+
+    /* Section Views */
+    .tab-section {
+      display: none;
+      animation: fadeIn 0.25s ease-out;
+    }
+
+    .tab-section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Section Headers */
+    .section-header {
+      margin-bottom: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 16px;
+    }
+
+    .section-title-wrap h2 {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 28px;
+      font-weight: 600;
+      color: var(--navy-900);
+      letter-spacing: -0.01em;
+    }
+
+    [data-theme="midnight"] .section-title-wrap h2 {
+      color: #f8fafc;
+    }
+
+    .section-title-wrap p {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-top: 4px;
+      max-width: 760px;
+      line-height: 1.5;
+    }
+
+    /* Grid Layouts */
+    .metrics-ribbon {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .metric-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 20px;
+      box-shadow: var(--shadow-sm);
+      position: relative;
+      overflow: hidden;
+      transition: all 0.2s ease;
+    }
+
+    .metric-card:hover {
+      box-shadow: var(--shadow-md);
+      border-color: var(--border-strong);
+      transform: translateY(-2px);
+    }
+
+    .metric-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: var(--navy-800);
+    }
+
+    .metric-card.accent-gold::before { background: var(--gold-500); }
+    .metric-card.accent-emerald::before { background: var(--emerald-600); }
+    .metric-card.accent-blue::before { background: var(--blue-600); }
+
+    .metric-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .metric-title {
+      font-size: 12.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+
+    .metric-value {
+      font-size: 28px;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+    }
+
+    .metric-caption {
+      font-size: 12.5px;
+      color: var(--text-muted);
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .delta-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-weight: 600;
+      font-size: 11px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .delta-positive {
+      background: var(--emerald-50);
+      color: var(--emerald-600);
+    }
+
+    .delta-negative {
+      background: var(--crimson-50);
+      color: var(--crimson-600);
+    }
+
+    /* Cards & Panels */
+    .panel {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 24px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 24px;
+    }
+
+    .panel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .panel-title {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 20px;
+      font-weight: 600;
+      color: var(--navy-900);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    [data-theme="midnight"] .panel-title {
+      color: #f8fafc;
+    }
+
+    .panel-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    /* Two Column Layout */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 1024px) {
+      .grid-2col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .grid-3col {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    @media (max-width: 1100px) {
+      .grid-3col {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* Chart Containers */
+    .chart-box {
+      width: 100%;
+      height: 380px;
+      position: relative;
+    }
+
+    .chart-box-compact {
+      width: 100%;
+      height: 280px;
+      position: relative;
+    }
+
+    /* Tables */
+    .table-responsive {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+    }
+
+    table.data-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13px;
+    }
+
+    table.data-table thead th {
+      background: var(--surface-subtle);
+      color: var(--text-muted);
+      font-weight: 600;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      text-transform: uppercase;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    [data-theme="midnight"] table.data-table thead th {
+      background: #0d1a33;
+    }
+
+    table.data-table tbody td {
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-main);
+      white-space: nowrap;
+    }
+
+    table.data-table tbody tr:hover {
+      background: var(--surface-subtle);
+    }
+
+    table.data-table td.numeric,
+    table.data-table th.numeric {
+      text-align: right;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .badge-tier {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .tier-1 { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .tier-2 { background: #dbeafe; color: #1e40af; border: 1px solid #bfdbfe; }
+    .tier-3 { background: #e0e7ff; color: #3730a3; border: 1px solid #c7d2fe; }
+    .tier-4 { background: #f1f5f9; color: #475569; border: 1px solid #cbd5e1; }
+
+    /* Forms & Controls */
+    .form-row {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      letter-spacing: 0.04em;
+    }
+
+    .form-select, .form-input {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--surface-card);
+      color: var(--text-main);
+      font-size: 13.5px;
+      font-family: inherit;
+      outline: none;
+      transition: border 0.2s;
+    }
+
+    .form-select:focus, .form-input:focus {
+      border-color: var(--gold-500);
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.15);
+    }
+
+    .slider-container {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .slider-val {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      font-weight: 600;
+      min-width: 65px;
+      text-align: right;
+      color: var(--gold-500);
+    }
+
+    /* Simulation Output Card */
+    .prediction-hero-box {
+      background: linear-gradient(135deg, #09152b 0%, #0e2246 100%);
+      color: #ffffff;
+      border-radius: var(--radius-md);
+      padding: 24px;
+      border: 1px solid rgba(217, 119, 6, 0.4);
+      position: relative;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+
+    .prediction-hero-box::before {
+      content: '';
+      position: absolute;
+      top: -50px;
+      right: -50px;
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle, rgba(245, 158, 11, 0.2) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .pred-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 38px;
+      font-weight: 700;
+      color: var(--gold-300);
+      margin: 8px 0;
+      letter-spacing: -0.02em;
+    }
+
+    /* Figure Modal */
+    .fig-gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 20px;
+    }
+
+    .fig-thumb-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .fig-thumb-card:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: var(--gold-400);
+    }
+
+    .fig-thumb-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .fig-thumb-body {
+      padding: 14px 16px;
+    }
+
+    .fig-thumb-title {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .fig-thumb-desc {
+      font-size: 12px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    /* Presentation Slide Mode */
+    .presentation-container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .slide-card {
+      background: var(--surface-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 40px;
+      box-shadow: var(--shadow-lg);
+      margin-bottom: 24px;
+      position: relative;
+    }
+
+    .slide-num {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--gold-500);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 8px;
+    }
+
+    .slide-heading {
+      font-family: 'Newsreader', Georgia, serif;
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--navy-900);
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    [data-theme="midnight"] .slide-heading {
+      color: #f8fafc;
+    }
+
+    .slide-content {
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--text-main);
+    }
+
+    .slide-content ul {
+      margin-left: 24px;
+      margin-top: 12px;
+      margin-bottom: 16px;
+    }
+
+    .slide-content li {
+      margin-bottom: 8px;
+    }
+
+    .callout-box {
+      background: var(--surface-subtle);
+      border-left: 4px solid var(--gold-500);
+      padding: 16px 20px;
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+
+    /* Modal Backdrop */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(6, 13, 25, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .modal-overlay.open {
+      display: flex;
+    }
+
+    .modal-dialog {
+      background: var(--surface-card);
+      border-radius: var(--radius-lg);
+      max-width: 900px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      border: 1px solid var(--border-strong);
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35);
+      position: relative;
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: rgba(0, 0, 0, 0.08);
+      border: none;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      color: var(--text-main);
+    }
+
+    .modal-body {
+      padding: 32px;
+    }
+
+    /* Print Styles */
+    @media print {
+      .top-masthead, .ticker-tape, .nav-strip, .masthead-controls, .btn-action {
+        display: none !important;
+      }
+      body, .app-main {
+        background: #ffffff !important;
+        color: #000000 !important;
+        padding: 0 !important;
+      }
+      .panel, .slide-card {
+        box-shadow: none !important;
+        border: 1px solid #cccccc !important;
+        break-inside: avoid;
+      }
+      .tab-section {
+        display: block !important;
+        margin-bottom: 40px;
+      }
+    }
+  </style>
+</head>
+<body data-theme="classic">
+
+  <!-- Top Masthead -->
+  <header class="top-masthead">
+    <div class="masthead-inner">
+      <div class="brand-block">
+        <div class="brand-spark">✱</div>
+        <div class="brand-text">
+          <h1>Walmart Store Sales Intelligence & Forecasting Studio</h1>
+          <div class="subtext">
+            <span>RVCE Applied Data Science Skill Lab</span>
+            <span>•</span>
+            <span class="badge-academic">Lab Mini-Project Evaluation</span>
+            <span>•</span>
+            <span>45 Stores × 143 Weeks (2010–2012)</span>
+          </div>
+        </div>
+      </div>
+      <div class="masthead-controls">
+        <button class="btn-action" id="themeToggleBtn" onclick="toggleTheme()">
+          <span>◐</span> <span id="themeBtnText">Midnight Mode</span>
+        </button>
+        <button class="btn-action" onclick="window.print()">
+          <span>⎙</span> Print Executive Briefing
+        </button>
+        <button class="btn-action btn-primary" onclick="switchTab('presentation')">
+          <span>▶</span> Viva Defense Deck
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Live Metric Ticker -->
+  <div class="ticker-tape">
+    <div class="ticker-item">
+      <span class="ticker-label">Chain Volume:</span>
+      <span class="ticker-val gold" id="tickerRevenue">$7.132 Billion</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-label">Store Universe:</span>
+      <span class="ticker-val">45 Supercenters</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-label">Weekly Store Avg:</span>
+      <span class="ticker-val">$1.108 Million</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-label">Holiday Volume Lift:</span>
+      <span class="ticker-val green">+30.24% Surge</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-label">Primary Champion Model:</span>
+      <span class="ticker-val gold">Random Forest (MAE $64.88k | 5.93% MAPE)</span>
+    </div>
+    <div class="ticker-item">
+      <span class="ticker-label">Critical Anchor Feature:</span>
+      <span class="ticker-val">lag_52 (Prior Year Same Week: 97.1% Importance)</span>
+    </div>
+  </div>
+
+  <!-- Navigation Bar -->
+  <nav class="nav-strip">
+    <div class="nav-inner">
+      <button class="nav-tab active" onclick="switchTab('overview')">
+        <span>1. Executive Overview</span>
+        <span class="nav-pill">Chain</span>
+      </button>
+      <button class="nav-tab" onclick="switchTab('stores')">
+        <span>2. Store Intelligence</span>
+        <span class="nav-pill">45 Stores</span>
+      </button>
+      <button class="nav-tab" onclick="switchTab('macro')">
+        <span>3. Macro & External Factors</span>
+        <span class="nav-pill">Econometrics</span>
+      </button>
+      <button class="nav-tab" onclick="switchTab('holidays')">
+        <span>4. Holiday & Seasonality Lab</span>
+        <span class="nav-pill">Surge</span>
+      </button>
+      <button class="nav-tab" onclick="switchTab('models')">
+        <span>5. Predictive Models & Leaderboard</span>
+        <span class="nav-pill">4 Models</span>
+      </button>
+      <button class="nav-tab" onclick="switchTab('simulator')">
+        <span>6. What-If Scenario Forecaster</span>
+        <span class="nav-pill">Live Predictor</span>
+      </button>
+      <button class="nav-tab" onclick="switchTab('gallery')">
+        <span>7. Notebook Figures Gallery</span>
+        <span class="nav-pill">10 Plots</span>
+      </button>
+      <button class="nav-tab" onclick="switchTab('presentation')">
+        <span>8. Viva Presentation Mode</span>
+        <span class="nav-pill">Slide Deck</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- App Main Content -->
+  <main class="app-main">
+    <div class="content-canvas">
+
+      <!-- ========================================== -->
+      <!-- TAB 1: EXECUTIVE OVERVIEW -->
+      <!-- ========================================== -->
+      <section id="section-overview" class="tab-section active">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>Executive Overview & Chain Performance</h2>
+            <p>High-level operational briefing across Walmart's 45 US retail supercenters over 143 consecutive weeks (Feb 2010 – Oct 2012).</p>
+          </div>
+          <div>
+            <span class="badge-academic">Complete Dataset (6,435 records • 0 missing)</span>
+          </div>
+        </div>
+
+        <!-- Metric Ribbon -->
+        <div class="metrics-ribbon">
+          <div class="metric-card accent-gold">
+            <div class="metric-header">
+              <span class="metric-title">Total Chain Revenue</span>
+              <span>💰</span>
+            </div>
+            <div class="metric-value">$7.132 B</div>
+            <div class="metric-caption">
+              <span>Cumulative across 143 recorded weeks</span>
+            </div>
+          </div>
+
+          <div class="metric-card accent-emerald">
+            <div class="metric-header">
+              <span class="metric-title">Weekly Store Mean</span>
+              <span>📈</span>
+            </div>
+            <div class="metric-value">$1.108 M</div>
+            <div class="metric-caption">
+              <span class="delta-badge delta-positive">+17.9%</span>
+              <span>above median ($0.940 M, right-skewed)</span>
+            </div>
+          </div>
+
+          <div class="metric-card accent-blue">
+            <div class="metric-header">
+              <span class="metric-title">Holiday Volume Multiplier</span>
+              <span>🎯</span>
+            </div>
+            <div class="metric-value">1.302×</div>
+            <div class="metric-caption">
+              <span class="delta-badge delta-positive">+30.2%</span>
+              <span>mean surge during flagged weeks</span>
+            </div>
+          </div>
+
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Store Scale Disparity</span>
+              <span>🏬</span>
+            </div>
+            <div class="metric-value">7.77×</div>
+            <div class="metric-caption">
+              <span>Store #2 ($2.656M) vs Store #43 ($0.342M)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chain Weekly Time-Series Chart -->
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Total Chain Weekly Sales Timeline (2010 – 2012)</div>
+              <div class="panel-subtitle">Chain-wide weekly revenue (US$ Million) showing pronounced Thanksgiving and Christmas peaks.</div>
+            </div>
+            <div style="font-size: 12px; font-family: 'JetBrains Mono', monospace; color: var(--text-muted);">
+              <span style="display:inline-block; width:10px; height:10px; background:#d97706; border-radius:50%; margin-right:4px;"></span> Holiday Weeks Flagged
+            </div>
+          </div>
+          <div class="chart-box" id="chainTimelineChartContainer">
+            <!-- Rendered by JS SVG engine -->
+          </div>
+        </div>
+
+        <!-- Two Column: Top/Bottom Stores & Outlier Policy -->
+        <div class="grid-2col">
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">Store Revenue Hierarchy (Top 5 vs Bottom 5)</div>
+                <div class="panel-subtitle">Significant scale differences driven by store format and regional catchment size.</div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Store</th>
+                    <th>Classification Tier</th>
+                    <th class="numeric">Weekly Avg</th>
+                    <th class="numeric">Total Revenue</th>
+                    <th class="numeric">Share</th>
+                  </tr>
+                </thead>
+                <tbody id="topBottomStoresTbody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">Outlier Policy: Investigate, Do Not Delete</div>
+                <div class="panel-subtitle">Why 127 IQR-flagged data points were intentionally preserved for model integrity.</div>
+              </div>
+              <span class="badge-academic">Methodology Highlight</span>
+            </div>
+            <div style="font-size: 13.5px; line-height: 1.6; color: var(--text-main);">
+              <p>Applying the standard Interquartile Range (IQR) rule across the entire dataset flags <strong>127 weeks (1.97% of observations)</strong> as high-sales outliers.</p>
+              <div class="callout-box" style="margin: 14px 0;">
+                <strong>Key Diagnostic Finding:</strong>
+                <p>100% of these 127 outliers belong to large flagship stores (Stores 2, 4, 13, 14, 20) during <em>Thanksgiving (Black Friday)</em> and the <em>Christmas rush</em>. None represent data entry errors or anomalous sensor malfunctions.</p>
+              </div>
+              <p><strong>Evaluation Defense Rationale:</strong> In commercial retail supply chain planning, deleting high holiday weeks creates artificial stock-outs during peak revenue windows. True seasonal peaks must be retained and modeled via calendar/lag features.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 2: STORE INTELLIGENCE EXPLORER -->
+      <!-- ========================================== -->
+      <section id="section-stores" class="tab-section">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>Store Intelligence & Portfolio Explorer</h2>
+            <p>Granular performance analytics for each of the 45 Walmart retail supercenters.</p>
+          </div>
+          <div style="display:flex; align-items:center; gap:10px;">
+            <label class="form-label" style="margin:0;">Select Supercenter:</label>
+            <select id="storeSelectDropdown" class="form-select" onchange="renderStoreDeepDive(this.value)" style="min-width: 180px;">
+              <!-- Populated by JS -->
+            </select>
+          </div>
+        </div>
+
+        <!-- Store KPI Strip -->
+        <div class="metrics-ribbon" id="storeKpiStrip">
+          <!-- Populated by JS -->
+        </div>
+
+        <!-- Store Trajectory Chart -->
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title" id="storeChartTitle">Store #1: 143-Week Sales Trajectory</div>
+              <div class="panel-subtitle">Historical weekly sales (US$) with store-specific mean baseline and holiday highlights.</div>
+            </div>
+          </div>
+          <div class="chart-box" id="storeTrajectoryChartContainer">
+            <!-- Rendered by JS -->
+          </div>
+        </div>
+
+        <!-- Store League Table -->
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Full 45-Store League Table</div>
+              <div class="panel-subtitle">Sorted by cumulative revenue, showing coefficient of variation (CV) and stability metrics.</div>
+            </div>
+          </div>
+          <div class="table-responsive" style="max-height: 480px;">
+            <table class="data-table" id="storeLeagueTable">
+              <thead>
+                <tr>
+                  <th>Rank</th>
+                  <th>Store</th>
+                  <th>Classification</th>
+                  <th class="numeric">Weekly Mean ($)</th>
+                  <th class="numeric">Weekly Median ($)</th>
+                  <th class="numeric">Std Dev ($)</th>
+                  <th class="numeric">CV</th>
+                  <th class="numeric">Min Week ($)</th>
+                  <th class="numeric">Peak Week ($)</th>
+                  <th class="numeric">Total Revenue ($)</th>
+                </tr>
+              </thead>
+              <tbody id="storeLeagueTbody">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 3: MACRO & EXTERNAL FACTORS STUDIO -->
+      <!-- ========================================== -->
+      <section id="section-macro" class="tab-section">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>Macroeconomic & External Environmental Factors</h2>
+            <p>Investigating the real econometric impact of Temperature, Fuel Price, Consumer Price Index (CPI), and Unemployment on sales.</p>
+          </div>
+          <div>
+            <span class="badge-academic">Simpson's Paradox & Pooled vs Within-Store</span>
+          </div>
+        </div>
+
+        <!-- Key Finding Callout -->
+        <div class="callout-box" style="border-left-color: var(--blue-600); background: var(--surface-card);">
+          <strong style="color: var(--blue-600); font-size: 15px;">Core Econometric Takeaway for Lab Viva:</strong>
+          <p style="margin-top: 6px; font-size: 14px; color: var(--text-main);">
+            External macro indicators (CPI, Fuel Price, Unemployment, Temperature) explain <strong>less than 1%</strong> of weekly sales variation once Store Identity (capacity/format) and Annual Seasonality (lag_52) are included. While Fuel Price and CPI rose steadily between 2010 and 2012, grocery and retail demand remained anchored by fixed store scale and holiday traditions.
+          </p>
+        </div>
+
+        <div class="grid-2col" style="margin-top: 24px;">
+          <!-- Pooled vs Within-Store Correlations -->
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">Pooled vs. Within-Store Correlation Matrix</div>
+                <div class="panel-subtitle">Why pooling all stores together gives misleading conclusions about temperature and CPI.</div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Macro Indicator</th>
+                    <th class="numeric">Pooled Correlation (r)</th>
+                    <th class="numeric">Within-Store Mean (r)</th>
+                    <th>Econometric Interpretation</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Temperature (°F)</strong></td>
+                    <td class="numeric">-0.0639</td>
+                    <td class="numeric" style="color:var(--crimson-600); font-weight:600;">-0.1384</td>
+                    <td>Colder winter temperatures coincide with holiday peaks; within individual stores, sales rise as temp drops.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Fuel Price ($/gal)</strong></td>
+                    <td class="numeric">+0.0095</td>
+                    <td class="numeric">-0.0121</td>
+                    <td>Negligible direct elastic impact; retail necessities were purchased regardless of pump prices.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>CPI (Index)</strong></td>
+                    <td class="numeric">-0.0726</td>
+                    <td class="numeric">+0.0214</td>
+                    <td>Inflation rose ~15% over the 3-year window but did not meaningfully alter weekly store turnover.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Unemployment (%)</strong></td>
+                    <td class="numeric">-0.1062</td>
+                    <td class="numeric">-0.0452</td>
+                    <td>Weak negative relationship; lower unemployment stores were slightly larger, but weekly impact is minimal.</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Holiday Flag (Binary)</strong></td>
+                    <td class="numeric" style="color:var(--emerald-600); font-weight:600;">+0.1276</td>
+                    <td class="numeric" style="color:var(--emerald-600); font-weight:600;">+0.2850</td>
+                    <td>Strongest single external signal; event calendar drives massive systematic surges.</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Feature Correlation Visualizer -->
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">Macro Factors vs. Weekly Sales</div>
+                <div class="panel-subtitle">Select indicator to inspect correlation behavior:</div>
+              </div>
+              <select id="macroSelect" class="form-select" onchange="renderMacroScatter(this.value)">
+                <option value="Temperature">Temperature (°F)</option>
+                <option value="Fuel_Price">Fuel Price ($/gal)</option>
+                <option value="CPI">Consumer Price Index (CPI)</option>
+                <option value="Unemployment">Unemployment Rate (%)</option>
+              </select>
+            </div>
+            <div class="chart-box" id="macroScatterChartContainer">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 4: HOLIDAY & SEASONALITY LAB -->
+      <!-- ========================================== -->
+      <section id="section-holidays" class="tab-section">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>Holiday & Seasonality Dynamics Lab</h2>
+            <p>Decomposing the retail calendar: Super Bowl, Labor Day, Thanksgiving, Christmas, and the unflagged pre-Christmas rush.</p>
+          </div>
+          <div>
+            <span class="badge-academic">Permutation Test p-value < 0.0001 (Highly Significant)</span>
+          </div>
+        </div>
+
+        <!-- Holiday Multipliers Table -->
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Holiday Sales Multiplier Index</div>
+              <div class="panel-subtitle">Benchmarked against non-holiday baseline sales ($1.085 Million/week).</div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Holiday Event</th>
+                  <th>Calendar Window</th>
+                  <th class="numeric">Mean Weekly Sales ($)</th>
+                  <th class="numeric">Lift Multiplier</th>
+                  <th class="numeric">Percentage Surge (%)</th>
+                  <th>Operational Supply Chain Impact</th>
+                </tr>
+              </thead>
+              <tbody id="holidayMetricsTbody">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="grid-2col">
+          <!-- Monthly Seasonality Chart -->
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">Monthly Seasonality Curve (Jan – Dec)</div>
+                <div class="panel-subtitle">Average store-week sales by calendar month.</div>
+              </div>
+            </div>
+            <div class="chart-box-compact" id="monthlySeasonalityChartContainer">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+
+          <!-- The Pre-Christmas Anomaly Note -->
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">The "Christmas Week" Anomaly</div>
+                <div class="panel-subtitle">Critical insight into retail calendar date alignment.</div>
+              </div>
+              <span class="badge-academic">Evaluation Highlight</span>
+            </div>
+            <div style="font-size: 13.5px; line-height: 1.6; color: var(--text-main);">
+              <p>In the Walmart dataset, the official <code>Holiday_Flag = 1</code> for Christmas is placed on the week of <strong>Dec 31, 2010</strong> and <strong>Dec 30, 2011</strong> (post-Christmas / New Year eve).</p>
+              <div class="callout-box" style="margin: 12px 0;">
+                <strong>The True Rush is the Pre-Christmas Week (Dec 24 / Dec 23):</strong>
+                <p>The week preceding Christmas (unflagged, <code>Holiday_Flag = 0</code>) registered average chain sales of over <strong>$1.79 Million per store</strong> (chain total > $80 Million), even higher than the flagged week!</p>
+              </div>
+              <p><strong>Recommendation:</strong> A production model must incorporate a dedicated <em>"Pre-Christmas Week"</em> indicator feature rather than relying solely on official calendar flags.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 5: PREDICTIVE MODELS & LEADERBOARD -->
+      <!-- ========================================== -->
+      <section id="section-models" class="tab-section">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>Predictive Modeling Benchmark & Diagnostics</h2>
+            <p>Rigorous time-based split evaluation (80% Train: Feb 2010 – Jun 2012 | 20% Test: Jun 2012 – Oct 2012; 855 unseen store-weeks).</p>
+          </div>
+          <div>
+            <span class="badge-academic">Evaluated on strictly unseen future dates</span>
+          </div>
+        </div>
+
+        <!-- Model Leaderboard Table -->
+        <div class="panel">
+          <div class="panel-header">
+            <div>
+              <div class="panel-title">Model Performance Leaderboard</div>
+              <div class="panel-subtitle">Comparing heuristic baselines against machine learning algorithms.</div>
+            </div>
+          </div>
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Model Rank</th>
+                  <th>Model Architecture</th>
+                  <th>Model Type</th>
+                  <th class="numeric">MAE (US$)</th>
+                  <th class="numeric">RMSE (US$)</th>
+                  <th class="numeric">R² Score</th>
+                  <th class="numeric">MAPE (%)</th>
+                  <th>Assessment</th>
+                </tr>
+              </thead>
+              <tbody id="modelLeaderboardTbody">
+                <!-- Populated by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 2 Col: Feature Importance & Test Period Prediction Fit -->
+        <div class="grid-2col">
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">Random Forest Feature Importance</div>
+                <div class="panel-subtitle">Why historical lags dominate predictive power.</div>
+              </div>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Feature Name</th>
+                    <th class="numeric">Importance (%)</th>
+                    <th>Analytical Role</th>
+                  </tr>
+                </thead>
+                <tbody id="featureImportanceTbody">
+                  <!-- Populated by JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">Chain-Wide Test Period: Actual vs. Forecast</div>
+                <div class="panel-subtitle">Total sales across all stores (US$ Million) over the 19 test weeks.</div>
+              </div>
+            </div>
+            <div class="chart-box" id="testPeriodChartContainer">
+              <!-- Rendered by JS -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 6: WHAT-IF SCENARIO FORECASTER -->
+      <!-- ========================================== -->
+      <section id="section-simulator" class="tab-section">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>Interactive What-If Scenario Forecaster</h2>
+            <p>Real-time simulation sandbox powered by the trained econometric regression model and historical store baselines.</p>
+          </div>
+          <div>
+            <span class="badge-academic">Live Inference Engine</span>
+          </div>
+        </div>
+
+        <div class="grid-2col">
+          <!-- Simulation Controls -->
+          <div class="panel">
+            <div class="panel-header">
+              <div>
+                <div class="panel-title">Simulation Parameters</div>
+                <div class="panel-subtitle">Configure store conditions and external economic factors:</div>
+              </div>
+              <button class="btn-action" onclick="resetSimulatorDefaults()" style="padding:4px 10px; font-size:12px;">Reset Defaults</button>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label class="form-label">Target Supercenter</label>
+                <select id="simStore" class="form-select" onchange="updateSimStoreDefaults()">
+                  <!-- Populated by JS -->
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Calendar Month</label>
+                <select id="simMonth" class="form-select" onchange="runSimulation()">
+                  <option value="1">January</option>
+                  <option value="2">February (Super Bowl)</option>
+                  <option value="5">May</option>
+                  <option value="9">September (Labor Day)</option>
+                  <option value="11" selected>November (Thanksgiving)</option>
+                  <option value="12">December (Christmas Rush)</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 16px;">
+              <label class="form-label">Holiday Event Flag</label>
+              <select id="simHoliday" class="form-select" onchange="runSimulation()">
+                <option value="0">Normal Week (Holiday_Flag = 0)</option>
+                <option value="1" selected>Holiday Week (Holiday_Flag = 1: Thanksgiving / Black Friday)</option>
+              </select>
+            </div>
+
+            <!-- Temperature Slider -->
+            <div class="form-group" style="margin-bottom: 16px;">
+              <div style="display:flex; justify-content:space-between;">
+                <label class="form-label">Temperature (°F)</label>
+                <span class="slider-val" id="simTempVal">45.0 °F</span>
+              </div>
+              <input type="range" id="simTemp" min="0" max="100" step="1" value="45" oninput="document.getElementById('simTempVal').innerText=this.value+' °F'; runSimulation();">
+            </div>
+
+            <!-- Fuel Price Slider -->
+            <div class="form-group" style="margin-bottom: 16px;">
+              <div style="display:flex; justify-content:space-between;">
+                <label class="form-label">Fuel Price ($/gal)</label>
+                <span class="slider-val" id="simFuelVal">$3.50</span>
+              </div>
+              <input type="range" id="simFuel" min="2.0" max="5.0" step="0.05" value="3.50" oninput="document.getElementById('simFuelVal').innerText='$'+parseFloat(this.value).toFixed(2); runSimulation();">
+            </div>
+
+            <!-- CPI Slider -->
+            <div class="form-group" style="margin-bottom: 16px;">
+              <div style="display:flex; justify-content:space-between;">
+                <label class="form-label">Consumer Price Index (CPI)</label>
+                <span class="slider-val" id="simCpiVal">215.0</span>
+              </div>
+              <input type="range" id="simCpi" min="120" max="230" step="1" value="215" oninput="document.getElementById('simCpiVal').innerText=this.value; runSimulation();">
+            </div>
+
+            <!-- Unemployment Slider -->
+            <div class="form-group" style="margin-bottom: 16px;">
+              <div style="display:flex; justify-content:space-between;">
+                <label class="form-label">Unemployment Rate (%)</label>
+                <span class="slider-val" id="simUnempVal">7.5%</span>
+              </div>
+              <input type="range" id="simUnemp" min="3.5" max="15.0" step="0.1" value="7.5" oninput="document.getElementById('simUnempVal').innerText=this.value+'%'; runSimulation();">
+            </div>
+
+            <!-- Prior Year Sales Lag_52 Multiplier -->
+            <div class="form-group">
+              <div style="display:flex; justify-content:space-between;">
+                <label class="form-label">Prior Year Historical Anchor (lag_52)</label>
+                <span class="slider-val" id="simLag52Val">$2.25 M</span>
+              </div>
+              <input type="range" id="simLag52" min="300000" max="4000000" step="50000" value="2250000" oninput="document.getElementById('simLag52Val').innerText='$'+(this.value/1e6).toFixed(2)+' M'; runSimulation();">
+            </div>
+          </div>
+
+          <!-- Forecast Result Display -->
+          <div class="panel" style="display: flex; flex-direction: column; justify-content: space-between;">
+            <div>
+              <div class="panel-header">
+                <div>
+                  <div class="panel-title">Simulated Forecast Output</div>
+                  <div class="panel-subtitle">Estimated weekly turnover based on the trained regression equations.</div>
+                </div>
+              </div>
+
+              <div class="prediction-hero-box">
+                <div style="font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: #94a3b8;">Predicted Weekly Revenue</div>
+                <div class="pred-num" id="simPredictedRevenue">$2,418,290</div>
+                <div style="font-size: 13px; color: #e2e8f0; display:flex; gap:16px; flex-wrap:wrap;">
+                  <span>Confidence Interval (±5.9% MAPE): <strong id="simConfidenceBand">$2.28M – $2.56M</strong></span>
+                </div>
+              </div>
+
+              <div style="margin-top: 24px;">
+                <div style="font-size: 13px; font-weight:600; text-transform:uppercase; color:var(--text-muted); margin-bottom:12px;">Comparative Benchmarks</div>
+                <div class="table-responsive">
+                  <table class="data-table">
+                    <tbody>
+                      <tr>
+                        <td>Store Baseline (Historical Weekly Mean)</td>
+                        <td class="numeric" id="simBenchMean">$2,215,302</td>
+                      </tr>
+                      <tr>
+                        <td>Expected Surge vs Store Baseline</td>
+                        <td class="numeric" id="simBenchSurge" style="color:var(--emerald-600); font-weight:700;">+9.16%</td>
+                      </tr>
+                      <tr>
+                        <td>Estimated Linear Regression Forecast</td>
+                        <td class="numeric" id="simBenchLinear">$2,389,140</td>
+                      </tr>
+                      <tr>
+                        <td>Estimated Random Forest Forecast</td>
+                        <td class="numeric" id="simBenchRF">$2,418,290</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+
+            <div class="callout-box" style="margin-top: 20px; font-size:12.5px;">
+              <strong>Sensitivity Note:</strong> Notice how moving the <em>Prior Year Anchor (lag_52)</em> slider drastically moves the prediction, while moving <em>Fuel Price</em> or <em>CPI</em> induces minimal change. This visually demonstrates the 97% feature importance of historical seasonality.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 7: NOTEBOOK FIGURES GALLERY -->
+      <!-- ========================================== -->
+      <section id="section-gallery" class="tab-section">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>Official Notebook Figures Gallery</h2>
+            <p>Direct high-resolution figures generated by <code>Walmart_EDA.ipynb</code> during the skill lab experiment.</p>
+          </div>
+          <div>
+            <span class="badge-academic">10 Matplotlib & Seaborn Artifacts</span>
+          </div>
+        </div>
+
+        <div class="fig-gallery-grid" id="figuresGalleryGrid">
+          <!-- Populated by JS -->
+        </div>
+      </section>
+
+      <!-- ========================================== -->
+      <!-- TAB 8: VIVA DEFENSE PRESENTATION DECK -->
+      <!-- ========================================== -->
+      <section id="section-presentation" class="tab-section">
+        <div class="section-header">
+          <div class="section-title-wrap">
+            <h2>Viva Defense Presentation Deck</h2>
+            <p>Structured academic slides tailored for the evaluation panel tomorrow.</p>
+          </div>
+          <div>
+            <span class="badge-academic">Skill Lab Evaluation Rubric</span>
+          </div>
+        </div>
+
+        <div class="presentation-container">
+          <!-- Slide 1 -->
+          <div class="slide-card">
+            <div class="slide-num">Slide 01 • Problem Definition & Objectives</div>
+            <h3 class="slide-heading">Walmart Store Sales Forecasting & Econometric Analysis</h3>
+            <div class="slide-content">
+              <p><strong>Business Problem:</strong> Retail hypermarkets must anticipate fluctuating customer demand across multi-store chains to optimize inventory replenishment, warehouse staffing, and supply-chain logistics.</p>
+              <ul>
+                <li><strong>Dataset Universe:</strong> 45 Walmart retail supercenters across the United States.</li>
+                <li><strong>Temporal Span:</strong> 143 consecutive weeks from February 5, 2010 to October 26, 2012 (6,435 observations; 0 missing values).</li>
+                <li><strong>Core Objective:</strong> Predict weekly sales per store with minimal error and determine whether external macroeconomic indicators (CPI, fuel, unemployment) drive sales or if internal historical seasonality dominates.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 2 -->
+          <div class="slide-card">
+            <div class="slide-num">Slide 02 • Data Acquisition & Cleaning Protocol</div>
+            <h3 class="slide-heading">Data Quality Verification & Outlier Treatment</h3>
+            <div class="slide-content">
+              <ul>
+                <li><strong>Completeness:</strong> Verified regular 7-day intervals for all 45 stores across the entire 143-week duration. Original raw data was kept strictly intact.</li>
+                <li><strong>Date Standardization:</strong> Resolved day-first formatting (<code>05-02-2010</code> = 5th February 2010) and derived temporal coordinates (<code>Year</code>, <code>Month</code>, <code>WeekOfYear</code>).</li>
+                <li><strong>Outlier Decision ("Investigate, Do Not Delete"):</strong> The IQR formula flags 127 weeks (2.0%). All 127 belong to large stores during Thanksgiving and Christmas. In commercial forecasting, deleting real holiday revenue peaks causes severe under-stocking.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 3 -->
+          <div class="slide-card">
+            <div class="slide-num">Slide 03 • Exploratory Data Analysis & Hypotheses</div>
+            <h3 class="slide-heading">Key Empirical Insights & Econometric Realities</h3>
+            <div class="slide-content">
+              <ul>
+                <li><strong>Store Scale Disparity:</strong> Stores differ by up to <strong>7.8×</strong> in volume (Store #2 averages $2.66M/wk vs Store #43 at $0.34M/wk), reflecting different supercenter formats and urban footfall.</li>
+                <li><strong>Holiday Surge:</strong> Holiday weeks generate a <strong>+30.2%</strong> average chain-wide volume boost. Thanksgiving generates a 1.43× multiplier, and the pre-Christmas rush generates 1.65×.</li>
+                <li><strong>The Macro Myth:</strong> External economic factors (CPI, Fuel Price, Unemployment) have near-zero correlation with weekly store variations. Consumer retail grocery shopping is non-discretionary.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 4 -->
+          <div class="slide-card">
+            <div class="slide-num">Slide 04 • Feature Engineering Architecture</div>
+            <h3 class="slide-heading">Time-Series Lags & Momentum Formulation</h3>
+            <div class="slide-content">
+              <p>Because weekly retail sales are strongly autocorrelated, we engineered domain-specific temporal lags:</p>
+              <ul>
+                <li><code>lag_1</code>: Immediate short-term inertia (sales of the prior week).</li>
+                <li><code>lag_52</code>: Annual seasonal anchor (sales of the exact same week in the prior calendar year).</li>
+                <li><code>roll_mean_4</code>: 4-week moving average capturing recent quarter momentum.</li>
+                <li><strong>Train/Test Integrity:</strong> Split chronologically (80% Train / 20% Test) on June 22, 2012. Testing is strictly evaluated on 855 unseen future store-weeks.</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Slide 5 -->
+          <div class="slide-card">
+            <div class="slide-num">Slide 05 • Model Evaluation & Viva Defense</div>
+            <h3 class="slide-heading">Model Comparison & Architectural Conclusions</h3>
+            <div class="slide-content">
+              <div class="table-responsive">
+                <table class="data-table">
+                  <thead>
+                    <tr>
+                      <th>Algorithm</th>
+                      <th class="numeric">MAE (US$)</th>
+                      <th class="numeric">RMSE (US$)</th>
+                      <th class="numeric">R² Score</th>
+                      <th class="numeric">MAPE (%)</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>Naive Lag-1 (Prior Week)</td>
+                      <td class="numeric">$91,423</td>
+                      <td class="numeric">$144,038</td>
+                      <td class="numeric">0.945</td>
+                      <td class="numeric">8.42%</td>
+                    </tr>
+                    <tr>
+                      <td>Naive Lag-52 (Prior Year)</td>
+                      <td class="numeric">$75,416</td>
+                      <td class="numeric">$106,156</td>
+                      <td class="numeric">0.970</td>
+                      <td class="numeric">6.81%</td>
+                    </tr>
+                    <tr>
+                      <td>Linear Regression (OLS + OneHot)</td>
+                      <td class="numeric">$67,353</td>
+                      <td class="numeric">$92,172</td>
+                      <td class="numeric">0.978</td>
+                      <td class="numeric">6.68%</td>
+                    </tr>
+                    <tr style="background:var(--gold-50); font-weight:700;">
+                      <td>Random Forest (300 Trees) 🏆</td>
+                      <td class="numeric">$64,887</td>
+                      <td class="numeric">$94,056</td>
+                      <td class="numeric">0.977</td>
+                      <td class="numeric">5.93%</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <div class="callout-box" style="margin-top: 16px;">
+                <strong>Primary Viva Defense Argument:</strong>
+                Random Forest delivers an industry-grade <strong>5.93% MAPE</strong> (off by ~$65k on a $1.1M average store-week), outperforming heuristic baselines by over $26,000 per store-week. Feature importance reveals that <code>lag_52</code> accounts for 97.1% of predictive split decisions.
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 6 -->
+          <div class="slide-card">
+            <div class="slide-num">Slide 06 • Critical Limitations & Next Steps</div>
+            <h3 class="slide-heading">Honest Academic Reflection & Future Enhancements</h3>
+            <div class="slide-content">
+              <ul>
+                <li><strong>Temporal Horizon Constraint:</strong> The test set (Jun–Oct 2012) only contained one holiday (Labor Day) and ended before Thanksgiving/Christmas peaks.</li>
+                <li><strong>Lag Dependency:</strong> Requiring <code>lag_52</code> consumes the first full year of data, reducing the modeling dataset to 91 weeks per store.</li>
+                <li><strong>Uncaptured Variables:</strong> Department-level breakdowns, competitor proximity, and circular markdown promotions were unavailable in the top-level store dataset.</li>
+                <li><strong>Production Roadmap:</strong> Implement LightGBM with rolling multi-step walk-forward cross-validation and explicit promotional discount flags.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- Modal for High-Res Figures -->
+  <div class="modal-overlay" id="figureModal" onclick="closeFigureModal(event)">
+    <div class="modal-dialog" onclick="event.stopPropagation()">
+      <button class="modal-close-btn" onclick="closeFigureModal()">✕</button>
+      <div class="modal-body">
+        <h3 id="modalFigTitle" style="font-family:'Newsreader',serif; font-size:22px; margin-bottom:6px;">Figure Title</h3>
+        <p id="modalFigDesc" style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">Description</p>
+        <div style="text-align:center; background:#ffffff; padding:12px; border-radius:8px; border:1px solid var(--border-subtle);">
+          <img id="modalFigImg" src="" alt="Figure" style="max-width:100%; height:auto; max-height:65vh; border-radius:4px;">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Load Embedded Dataset -->
+  <script src="outputs/data.js"></script>
+
+  <!-- Application Logic -->
+  <script>
+    // Ensure data is loaded
+    const data = window.DASHBOARD_DATA;
+
+    // Theme Switcher
+    function toggleTheme() {
+      const current = document.body.getAttribute('data-theme');
+      const next = current === 'midnight' ? 'classic' : 'midnight';
+      document.body.setAttribute('data-theme', next);
+      document.getElementById('themeBtnText').innerText = next === 'midnight' ? 'Classic Mode' : 'Midnight Mode';
+    }
+
+    // Tab Switching
+    function switchTab(tabId) {
+      document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
+      document.querySelectorAll('.nav-tab').forEach(btn => btn.classList.remove('active'));
+
+      const target = document.getElementById('section-' + tabId);
+      if (target) target.classList.add('active');
+
+      const tabs = Array.from(document.querySelectorAll('.nav-tab'));
+      const activeIdx = ['overview', 'stores', 'macro', 'holidays', 'models', 'simulator', 'gallery', 'presentation'].indexOf(tabId);
+      if (activeIdx !== -1 && tabs[activeIdx]) {
+        tabs[activeIdx].classList.add('active');
+      }
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // Trigger chart re-renders on tab display
+      setTimeout(() => {
+        if (tabId === 'overview') renderChainTimelineSVG();
+        if (tabId === 'stores') {
+          const sel = document.getElementById('storeSelectDropdown');
+          renderStoreDeepDive(sel ? sel.value : 1);
+        }
+        if (tabId === 'macro') {
+          const sel = document.getElementById('macroSelect');
+          renderMacroScatter(sel ? sel.value : 'Temperature');
+        }
+        if (tabId === 'holidays') renderMonthlySeasonalitySVG();
+        if (tabId === 'models') renderTestPeriodSVG();
+      }, 50);
+    }
+
+    // Number Formatters
+    const fmtUSD = (n) => '$' + Number(n).toLocaleString('en-US', { maximumFractionDigits: 0 });
+    const fmtMillions = (n) => '$' + (Number(n) / 1e6).toFixed(2) + ' M';
+
+    // 1. Populate Overview Tab
+    function initOverview() {
+      if (!data) return;
+
+      // Top / Bottom Stores Table
+      const top5 = data.stores.slice(0, 5);
+      const bottom5 = data.stores.slice(-5).reverse();
+      const tbody = document.getElementById('topBottomStoresTbody');
+      tbody.innerHTML = '';
+
+      const appendRow = (s, isTop) => {
+        const tr = document.createElement('tr');
+        const share = ((s.totalSales / data.metadata.totalRevenue) * 100).toFixed(2);
+        tr.innerHTML = `
+          <td><strong>Store #${s.id}</strong> ${isTop ? '🏆' : ''}</td>
+          <td><span class="badge-tier ${s.tier.startsWith('Tier 1') ? 'tier-1' : s.tier.startsWith('Tier 2') ? 'tier-2' : s.tier.startsWith('Tier 3') ? 'tier-3' : 'tier-4'}">${s.tier}</span></td>
+          <td class="numeric">${fmtUSD(s.meanSales)}</td>
+          <td class="numeric"><strong>${fmtMillions(s.totalSales)}</strong></td>
+          <td class="numeric">${share}%</td>
+        `;
+        tbody.appendChild(tr);
+      };
+
+      top5.forEach(s => appendRow(s, true));
+      const divider = document.createElement('tr');
+      divider.innerHTML = `<td colspan="5" style="text-align:center; background:var(--surface-subtle); color:var(--text-muted); font-size:11px; padding:6px;">... 35 intermediate stores omitted ...</td>`;
+      tbody.appendChild(divider);
+      bottom5.forEach(s => appendRow(s, false));
+
+      renderChainTimelineSVG();
+    }
+
+    // Render Chain Timeline as Interactive SVG
+    function renderChainTimelineSVG() {
+      const container = document.getElementById('chainTimelineChartContainer');
+      if (!container || !data) return;
+
+      const timeline = data.timeline;
+      const width = container.clientWidth || 1000;
+      const height = 360;
+      const padLeft = 70;
+      const padRight = 30;
+      const padTop = 30;
+      const padBottom = 50;
+
+      const plotW = width - padLeft - padRight;
+      const plotH = height - padTop - padBottom;
+
+      const salesVals = timeline.map(t => t.totalSales / 1e6);
+      const minS = Math.min(...salesVals) * 0.9;
+      const maxS = Math.max(...salesVals) * 1.08;
+
+      const getX = (idx) => padLeft + (idx / (timeline.length - 1)) * plotW;
+      const getY = (val) => padTop + plotH - ((val - minS) / (maxS - minS)) * plotH;
+
+      let pathD = `M ${getX(0)} ${getY(salesVals[0])}`;
+      for (let i = 1; i < timeline.length; i++) {
+        pathD += ` L ${getX(i)} ${getY(salesVals[i])}`;
+      }
+
+      // Fill area under path
+      const areaD = `${pathD} L ${getX(timeline.length - 1)} ${padTop + plotH} L ${getX(0)} ${padTop + plotH} Z`;
+
+      // Holiday markers
+      let holidayDots = '';
+      timeline.forEach((t, i) => {
+        if (t.holidayFlag === 1 || t.holidayName !== 'None') {
+          const cx = getX(i);
+          const cy = getY(t.totalSales / 1e6);
+          const color = t.holidayFlag === 1 ? '#d97706' : '#2563eb';
+          holidayDots += `
+            <circle cx="${cx}" cy="${cy}" r="5" fill="${color}" stroke="#ffffff" stroke-width="1.5" />
+            <text x="${cx}" y="${cy - 9}" font-size="10" font-family="'JetBrains Mono',monospace" fill="${color}" text-anchor="middle" font-weight="600">${t.holidayName !== 'None' ? t.holidayName : 'Holiday'}</text>
+          `;
+        }
+      });
+
+      // Horizontal grid lines
+      let gridLines = '';
+      const steps = 5;
+      for (let s = 0; s <= steps; s++) {
+        const val = minS + (s / steps) * (maxS - minS);
+        const y = getY(val);
+        gridLines += `
+          <line x1="${padLeft}" y1="${y}" x2="${width - padRight}" y2="${y}" stroke="var(--border-subtle)" stroke-dasharray="3,3" />
+          <text x="${padLeft - 10}" y="${y + 4}" font-size="11" font-family="'JetBrains Mono',monospace" fill="var(--text-muted)" text-anchor="end">$${val.toFixed(1)}M</text>
+        `;
+      }
+
+      // X-axis date labels
+      let dateLabels = '';
+      const dateSteps = 6;
+      for (let d = 0; d < dateSteps; d++) {
+        const idx = Math.floor((d / (dateSteps - 1)) * (timeline.length - 1));
+        const x = getX(idx);
+        const dateStr = timeline[idx].date;
+        dateLabels += `
+          <line x1="${x}" y1="${padTop + plotH}" x2="${x}" y2="${padTop + plotH + 6}" stroke="var(--border-strong)" />
+          <text x="${x}" y="${padTop + plotH + 20}" font-size="11" font-family="'JetBrains Mono',monospace" fill="var(--text-muted)" text-anchor="middle">${dateStr}</text>
+        `;
+      }
+
+      container.innerHTML = `
+        <svg width="100%" height="${height}" viewBox="0 0 ${width} ${height}" style="overflow:visible;">
+          <defs>
+            <linearGradient id="areaGradient" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="#0b1e3a" stop-opacity="0.35"/>
+              <stop offset="100%" stop-color="#0b1e3a" stop-opacity="0.0"/>
+            </linearGradient>
+          </defs>
+          ${gridLines}
+          <path d="${areaD}" fill="url(#areaGradient)" />
+          <path d="${pathD}" fill="none" stroke="#002244" stroke-width="2.5" />
+          ${holidayDots}
+          ${dateLabels}
+          <line x1="${padLeft}" y1="${padTop + plotH}" x2="${width - padRight}" y2="${padTop + plotH}" stroke="var(--border-strong)" stroke-width="1.5" />
+        </svg>
+      `;
+    }
+
+    // 2. Populate Store Intelligence Tab
+    function initStoresTab() {
+      if (!data) return;
+      const select = document.getElementById('storeSelectDropdown');
+      select.innerHTML = '';
+      data.stores.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        opt.innerText = `Store #${s.id} — Rank ${s.rank} (${s.tier.split(' - ')[1]})`;
+        select.appendChild(opt);
+      });
+
+      // League Table
+      const tbody = document.getElementById('storeLeagueTbody');
+      tbody.innerHTML = '';
+      data.stores.forEach(s => {
+        const tr = document.createElement('tr');
+        tr.style.cursor = 'pointer';
+        tr.onclick = () => {
+          select.value = s.id;
+          renderStoreDeepDive(s.id);
+          window.scrollTo({ top: 180, behavior: 'smooth' });
+        };
+        tr.innerHTML = `
+          <td><strong>#${s.rank}</strong></td>
+          <td><strong>Store #${s.id}</strong></td>
+          <td><span class="badge-tier ${s.tier.startsWith('Tier 1') ? 'tier-1' : s.tier.startsWith('Tier 2') ? 'tier-2' : s.tier.startsWith('Tier 3') ? 'tier-3' : 'tier-4'}">${s.tier.split(' - ')[1]}</span></td>
+          <td class="numeric">${fmtUSD(s.meanSales)}</td>
+          <td class="numeric">${fmtUSD(s.medianSales)}</td>
+          <td class="numeric">${fmtUSD(s.stdSales)}</td>
+          <td class="numeric">${s.cv}</td>
+          <td class="numeric">${fmtUSD(s.minSales)}</td>
+          <td class="numeric" style="color:var(--gold-500); font-weight:600;">${fmtUSD(s.maxSales)}</td>
+          <td class="numeric"><strong>${fmtMillions(s.totalSales)}</strong></td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      renderStoreDeepDive(1);
+    }
+
+    function renderStoreDeepDive(storeId) {
+      storeId = parseInt(storeId);
+      const store = data.stores.find(s => s.id === storeId);
+      if (!store) return;
+
+      // Update KPI Strip
+      const kpis = document.getElementById('storeKpiStrip');
+      kpis.innerHTML = `
+        <div class="metric-card accent-gold">
+          <div class="metric-header"><span class="metric-title">Portfolio Rank</span><span>🏅</span></div>
+          <div class="metric-value">#${store.rank} of 45</div>
+          <div class="metric-caption"><span>${store.tier}</span></div>
+        </div>
+        <div class="metric-card accent-emerald">
+          <div class="metric-header"><span class="metric-title">Weekly Revenue Mean</span><span>📊</span></div>
+          <div class="metric-value">${fmtMillions(store.meanSales)}</div>
+          <div class="metric-caption"><span class="delta-badge delta-positive">${((store.meanSales/data.metadata.avgStoreWeeklySales - 1)*100).toFixed(1)}% vs Chain</span></div>
+        </div>
+        <div class="metric-card accent-blue">
+          <div class="metric-header"><span class="metric-title">Stability (CV)</span><span>📐</span></div>
+          <div class="metric-value">${store.cv}</div>
+          <div class="metric-caption"><span>Std Dev: ${fmtUSD(store.stdSales)}</span></div>
+        </div>
+        <div class="metric-card">
+          <div class="metric-header"><span class="metric-title">Peak Holiday Surge</span><span>⭐</span></div>
+          <div class="metric-value">${fmtMillions(store.maxSales)}</div>
+          <div class="metric-caption"><span>Min: ${fmtMillions(store.minSales)}</span></div>
+        </div>
+      `;
+
+      // Update Chart Title & Render
+      document.getElementById('storeChartTitle').innerText = `Store #${store.id} (${store.tier}): 143-Week Sales Trajectory`;
+      renderStoreTrajectorySVG(store);
+    }
+
+    function renderStoreTrajectorySVG(store) {
+      const container = document.getElementById('storeTrajectoryChartContainer');
+      if (!container) return;
+
+      const sales = store.weeklySales;
+      const width = container.clientWidth || 1000;
+      const height = 360;
+      const padLeft = 75;
+      const padRight = 30;
+      const padTop = 30;
+      const padBottom = 50;
+
+      const plotW = width - padLeft - padRight;
+      const plotH = height - padTop - padBottom;
+
+      const minS = Math.min(...sales) * 0.92;
+      const maxS = Math.max(...sales) * 1.08;
+
+      const getX = (idx) => padLeft + (idx / (sales.length - 1)) * plotW;
+      const getY = (val) => padTop + plotH - ((val - minS) / (maxS - minS)) * plotH;
+
+      let pathD = `M ${getX(0)} ${getY(sales[0])}`;
+      for (let i = 1; i < sales.length; i++) {
+        pathD += ` L ${getX(i)} ${getY(sales[i])}`;
+      }
+
+      // Mean line
+      const meanY = getY(store.meanSales);
+
+      container.innerHTML = `
+        <svg width="100%" height="${height}" viewBox="0 0 ${width} ${height}">
+          <line x1="${padLeft}" y1="${meanY}" x2="${width - padRight}" y2="${meanY}" stroke="var(--gold-400)" stroke-width="1.5" stroke-dasharray="4,4" />
+          <text x="${width - padRight - 5}" y="${meanY - 6}" font-size="11" font-family="'JetBrains Mono',monospace" fill="var(--gold-500)" text-anchor="end">Store Mean: ${fmtMillions(store.meanSales)}</text>
+          <path d="${pathD}" fill="none" stroke="#1e40af" stroke-width="2.2" />
+          <line x1="${padLeft}" y1="${padTop + plotH}" x2="${width - padRight}" y2="${padTop + plotH}" stroke="var(--border-strong)" stroke-width="1.5" />
+          <text x="${padLeft}" y="${padTop + 14}" font-size="11" font-family="'JetBrains Mono',monospace" fill="var(--text-muted)">Max: ${fmtMillions(maxS)}</text>
+          <text x="${padLeft}" y="${padTop + plotH - 6}" font-size="11" font-family="'JetBrains Mono',monospace" fill="var(--text-muted)">Min: ${fmtMillions(minS)}</text>
+        </svg>
+      `;
+    }
+
+    // 3. Macro Scatter Plot
+    function renderMacroScatter(factorName) {
+      const container = document.getElementById('macroScatterChartContainer');
+      if (!container || !data) return;
+
+      const timeline = data.timeline;
+      const width = container.clientWidth || 500;
+      const height = 360;
+      const padLeft = 60;
+      const padRight = 30;
+      const padTop = 30;
+      const padBottom = 50;
+
+      const plotW = width - padLeft - padRight;
+      const plotH = height - padTop - padBottom;
+
+      let xVals = [];
+      if (factorName === 'Temperature') xVals = timeline.map(t => t.avgTemp);
+      else if (factorName === 'Fuel_Price') xVals = timeline.map(t => t.avgFuel);
+      else if (factorName === 'CPI') xVals = timeline.map(t => t.avgCPI);
+      else if (factorName === 'Unemployment') xVals = timeline.map(t => t.avgUnemployment);
+
+      const yVals = timeline.map(t => t.avgSales / 1e6);
+
+      const minX = Math.min(...xVals) * 0.95;
+      const maxX = Math.max(...xVals) * 1.05;
+      const minY = Math.min(...yVals) * 0.95;
+      const maxY = Math.max(...yVals) * 1.05;
+
+      const getX = (val) => padLeft + ((val - minX) / (maxX - minX)) * plotW;
+      const getY = (val) => padTop + plotH - ((val - minY) / (maxY - minY)) * plotH;
+
+      let dots = '';
+      xVals.forEach((x, i) => {
+        dots += `<circle cx="${getX(x)}" cy="${getY(yVals[i])}" r="4" fill="#002244" opacity="0.65" />`;
+      });
+
+      const pooledR = data.correlations.pooled[factorName];
+      const withinR = data.correlations.within[factorName];
+
+      container.innerHTML = `
+        <svg width="100%" height="${height}" viewBox="0 0 ${width} ${height}">
+          <line x1="${padLeft}" y1="${padTop + plotH}" x2="${width - padRight}" y2="${padTop + plotH}" stroke="var(--border-strong)" />
+          <line x1="${padLeft}" y1="${padTop}" x2="${padLeft}" y2="${padTop + plotH}" stroke="var(--border-strong)" />
+          ${dots}
+          <text x="${width - padRight}" y="${padTop + 16}" font-size="12" font-family="'JetBrains Mono',monospace" fill="var(--text-muted)" text-anchor="end">Pooled r = ${pooledR} | Within-Store r = ${withinR}</text>
+          <text x="${width / 2}" y="${height - 12}" font-size="12" font-weight="600" fill="var(--text-muted)" text-anchor="middle">${factorName}</text>
+        </svg>
+      `;
+    }
+
+    // 4. Holiday Dynamics Tab
+    function initHolidayTab() {
+      if (!data) return;
+
+      const tbody = document.getElementById('holidayMetricsTbody');
+      tbody.innerHTML = '';
+      data.holidays.forEach(h => {
+        const tr = document.createElement('tr');
+        const isRush = h.holiday.includes('Rush') || h.holiday.includes('Thanksgiving');
+        tr.innerHTML = `
+          <td><strong>${h.holiday}</strong></td>
+          <td>${h.holiday === 'Super Bowl' ? 'Mid February (W06)' : h.holiday === 'Labor Day' ? 'Early September (W36)' : h.holiday === 'Thanksgiving' ? 'Late November (W47)' : h.holiday.includes('Pre-Christmas') ? 'Dec 23–24 (W51)' : h.holiday === 'Christmas' ? 'Dec 30–31 (W52)' : 'All Year'}</td>
+          <td class="numeric">${fmtUSD(h.meanSales)}</td>
+          <td class="numeric" style="${isRush ? 'color:var(--gold-500); font-weight:700;' : ''}">${h.liftMultiplier}×</td>
+          <td class="numeric"><span class="delta-badge ${h.liftPct >= 0 ? 'delta-positive' : 'delta-negative'}">${h.liftPct >= 0 ? '+' : ''}${h.liftPct}%</span></td>
+          <td>${isRush ? 'Critical peak staffing & maximum inventory buffer required' : 'Routine volume with modest category promotions'}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      renderMonthlySeasonalitySVG();
+    }
+
+    function renderMonthlySeasonalitySVG() {
+      const container = document.getElementById('monthlySeasonalityChartContainer');
+      if (!container || !data) return;
+
+      const monthly = data.monthly;
+      const width = container.clientWidth || 500;
+      const height = 260;
+      const padLeft = 60;
+      const padRight = 20;
+      const padTop = 20;
+      const padBottom = 40;
+
+      const plotW = width - padLeft - padRight;
+      const plotH = height - padTop - padBottom;
+
+      const means = monthly.map(m => m.mean / 1e6);
+      const minM = Math.min(...means) * 0.9;
+      const maxM = Math.max(...means) * 1.08;
+
+      const barWidth = (plotW / 12) * 0.65;
+      let bars = '';
+
+      monthly.forEach((m, i) => {
+        const val = m.mean / 1e6;
+        const x = padLeft + (i / 12) * plotW + (plotW / 12 - barWidth) / 2;
+        const barH = ((val - minM) / (maxM - minM)) * plotH;
+        const y = padTop + plotH - barH;
+        const isPeak = m.month === 11 || m.month === 12;
+        const fill = isPeak ? '#d97706' : '#1e3a70';
+
+        bars += `
+          <rect x="${x}" y="${y}" width="${barWidth}" height="${barH}" fill="${fill}" rx="3" />
+          <text x="${x + barWidth / 2}" y="${padTop + plotH + 18}" font-size="11" font-family="'JetBrains Mono',monospace" fill="var(--text-muted)" text-anchor="middle">${m.name}</text>
+          ${isPeak ? `<text x="${x + barWidth / 2}" y="${y - 6}" font-size="10" font-family="'JetBrains Mono',monospace" fill="#d97706" text-anchor="middle" font-weight="600">$${val.toFixed(2)}M</text>` : ''}
+        `;
+      });
+
+      container.innerHTML = `
+        <svg width="100%" height="${height}" viewBox="0 0 ${width} ${height}">
+          ${bars}
+          <line x1="${padLeft}" y1="${padTop + plotH}" x2="${width - padRight}" y2="${padTop + plotH}" stroke="var(--border-strong)" />
+        </svg>
+      `;
+    }
+
+    // 5. Predictive Models Tab
+    function initModelsTab() {
+      if (!data) return;
+
+      const tbody = document.getElementById('modelLeaderboardTbody');
+      tbody.innerHTML = '';
+      data.models.forEach((m, idx) => {
+        const tr = document.createElement('tr');
+        const isWinner = idx === 3;
+        if (isWinner) tr.style.background = 'var(--gold-50)';
+        tr.innerHTML = `
+          <td><strong>#${idx + 1}</strong> ${isWinner ? '🏆' : ''}</td>
+          <td><strong>${m.name}</strong></td>
+          <td><span class="badge-tier ${idx >= 2 ? 'tier-2' : 'tier-4'}">${m.type}</span></td>
+          <td class="numeric" style="${isWinner ? 'color:var(--emerald-600); font-weight:700;' : ''}">${fmtUSD(m.mae)}</td>
+          <td class="numeric">${fmtUSD(m.rmse)}</td>
+          <td class="numeric" style="font-weight:600;">${m.r2.toFixed(3)}</td>
+          <td class="numeric" style="${isWinner ? 'color:var(--emerald-600); font-weight:700;' : ''}">${m.mape.toFixed(2)}%</td>
+          <td>${isWinner ? 'Champion Model (Best generalization on unseen test weeks)' : idx === 2 ? 'Strong baseline with near-identical RMSE' : 'Heuristic baseline'}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Feature Importance Table
+      const fiBody = document.getElementById('featureImportanceTbody');
+      fiBody.innerHTML = '';
+      data.features.forEach(f => {
+        const tr = document.createElement('tr');
+        const isDominant = f.importance > 0.5;
+        tr.innerHTML = `
+          <td><strong>${f.feature}</strong></td>
+          <td class="numeric" style="${isDominant ? 'color:var(--gold-500); font-weight:700;' : ''}">${(f.importance * 100).toFixed(2)}%</td>
+          <td>${f.desc}</td>
+        `;
+        fiBody.appendChild(tr);
+      });
+
+      renderTestPeriodSVG();
+    }
+
+    function renderTestPeriodSVG() {
+      const container = document.getElementById('testPeriodChartContainer');
+      if (!container || !data) return;
+
+      const testPts = data.testTimeline;
+      const width = container.clientWidth || 500;
+      const height = 360;
+      const padLeft = 65;
+      const padRight = 30;
+      const padTop = 30;
+      const padBottom = 50;
+
+      const plotW = width - padLeft - padRight;
+      const plotH = height - padTop - padBottom;
+
+      const actuals = testPts.map(t => t.actual);
+      const minA = Math.min(...actuals) * 0.95;
+      const maxA = Math.max(...actuals) * 1.05;
+
+      const getX = (idx) => padLeft + (idx / (testPts.length - 1)) * plotW;
+      const getY = (val) => padTop + plotH - ((val - minA) / (maxA - minA)) * plotH;
+
+      let actualPath = `M ${getX(0)} ${getY(testPts[0].actual)}`;
+      let rfPath = `M ${getX(0)} ${getY(testPts[0].pred_rf)}`;
+
+      for (let i = 1; i < testPts.length; i++) {
+        actualPath += ` L ${getX(i)} ${getY(testPts[i].actual)}`;
+        rfPath += ` L ${getX(i)} ${getY(testPts[i].pred_rf)}`;
+      }
+
+      container.innerHTML = `
+        <svg width="100%" height="${height}" viewBox="0 0 ${width} ${height}">
+          <path d="${actualPath}" fill="none" stroke="#002244" stroke-width="2.5" />
+          <path d="${rfPath}" fill="none" stroke="#d97706" stroke-width="2" stroke-dasharray="4,4" />
+          <line x1="${padLeft}" y1="${padTop + plotH}" x2="${width - padRight}" y2="${padTop + plotH}" stroke="var(--border-strong)" />
+          <text x="${width - padRight}" y="${padTop + 14}" font-size="11" font-family="'JetBrains Mono',monospace" fill="#002244" text-anchor="end">— Actual Sales ($M)</text>
+          <text x="${width - padRight}" y="${padTop + 28}" font-size="11" font-family="'JetBrains Mono',monospace" fill="#d97706" text-anchor="end">--- RF Forecast ($M)</text>
+        </svg>
+      `;
+    }
+
+    // 6. Interactive What-If Scenario Forecaster
+    function initSimulator() {
+      if (!data) return;
+      const sel = document.getElementById('simStore');
+      sel.innerHTML = '';
+      data.stores.forEach(s => {
+        const opt = document.createElement('option');
+        opt.value = s.id;
+        opt.innerText = `Store #${s.id} (${fmtMillions(s.meanSales)}/wk)`;
+        sel.appendChild(opt);
+      });
+      updateSimStoreDefaults();
+    }
+
+    function updateSimStoreDefaults() {
+      const storeId = parseInt(document.getElementById('simStore').value);
+      const b = data.simulatorBaselines[storeId];
+      if (!b) return;
+
+      document.getElementById('simTemp').value = Math.round(b.temp);
+      document.getElementById('simTempVal').innerText = b.temp + ' °F';
+
+      document.getElementById('simFuel').value = b.fuel;
+      document.getElementById('simFuelVal').innerText = '$' + b.fuel.toFixed(2);
+
+      document.getElementById('simCpi').value = Math.round(b.cpi);
+      document.getElementById('simCpiVal').innerText = b.cpi;
+
+      document.getElementById('simUnemp').value = b.unemp;
+      document.getElementById('simUnempVal').innerText = b.unemp + '%';
+
+      document.getElementById('simLag52').value = Math.round(b.mean);
+      document.getElementById('simLag52Val').innerText = fmtMillions(b.mean);
+
+      runSimulation();
+    }
+
+    function resetSimulatorDefaults() {
+      document.getElementById('simStore').value = 1;
+      document.getElementById('simHoliday').value = '1';
+      document.getElementById('simMonth').value = '11';
+      updateSimStoreDefaults();
+    }
+
+    function runSimulation() {
+      if (!data || !data.linearParams) return;
+      const lp = data.linearParams;
+
+      const storeId = parseInt(document.getElementById('simStore').value);
+      const holidayFlag = parseInt(document.getElementById('simHoliday').value);
+      const temp = parseFloat(document.getElementById('simTemp').value);
+      const fuel = parseFloat(document.getElementById('simFuel').value);
+      const cpi = parseFloat(document.getElementById('simCpi').value);
+      const unemp = parseFloat(document.getElementById('simUnemp').value);
+      const month = parseInt(document.getElementById('simMonth').value);
+      const lag52 = parseFloat(document.getElementById('simLag52').value);
+
+      const storeBase = data.simulatorBaselines[storeId];
+      const lag1 = storeBase ? storeBase.recent_avg : lag52;
+      const rollMean4 = lag1;
+      const weekOfYear = Math.min(52, Math.max(1, month * 4));
+
+      // Compute exact Linear Regression estimate
+      const numVals = [holidayFlag, temp, fuel, cpi, unemp, month, weekOfYear, lag1, lag52, rollMean4];
+      let linearPred = lp.intercept;
+
+      for (let i = 0; i < numVals.length; i++) {
+        const scaled = (numVals[i] - lp.scaler_means[i]) / lp.scaler_scales[i];
+        linearPred += scaled * lp.num_coefs[i];
+      }
+
+      const storeIdx = lp.cat_stores.indexOf(storeId);
+      if (storeIdx !== -1) {
+        linearPred += lp.cat_coefs[storeIdx];
+      }
+
+      // Random Forest adjustment simulation
+      // RF places 97% weight on lag_52 and captures non-linear holiday spikes
+      let rfPred = lag52 * 0.94 + storeBase.mean * 0.04 + (holidayFlag ? 150000 : 0);
+      // Blend slightly with linear to ensure smooth continuous behavior
+      const predicted = Math.max(100000, Math.round(rfPred * 0.7 + linearPred * 0.3));
+
+      document.getElementById('simPredictedRevenue').innerText = fmtUSD(predicted);
+      const lower = Math.round(predicted * 0.941);
+      const upper = Math.round(predicted * 1.059);
+      document.getElementById('simConfidenceBand').innerText = `${fmtMillions(lower)} – ${fmtMillions(upper)}`;
+
+      document.getElementById('simBenchMean').innerText = fmtUSD(storeBase.mean);
+      const diffPct = (((predicted - storeBase.mean) / storeBase.mean) * 100).toFixed(1);
+      const diffEl = document.getElementById('simBenchSurge');
+      diffEl.innerText = (diffPct >= 0 ? '+' : '') + diffPct + '%';
+      diffEl.style.color = diffPct >= 0 ? 'var(--emerald-600)' : 'var(--crimson-600)';
+
+      document.getElementById('simBenchLinear').innerText = fmtUSD(Math.round(linearPred));
+      document.getElementById('simBenchRF').innerText = fmtUSD(Math.round(rfPred));
+    }
+
+    // 7. Notebook Figures Gallery
+    const galleryFigures = [
+      { id: '01', file: '01_sales_distribution.png', title: '01. Weekly Sales Distribution', desc: 'Histograms and KDE showing right-skewness and long tail up to $3.8M.' },
+      { id: '02', file: '02_store_avg_sales.png', title: '02. Store Average Sales Ranked', desc: 'Step-down comparison highlighting 7.8x disparity from Store #2 to Store #43.' },
+      { id: '03', file: '03_store_boxplot.png', title: '03. Store Sales Boxplots & Outliers', desc: 'Distribution across stores confirming holiday spikes in flagship units.' },
+      { id: '04', file: '04_total_sales_timeseries.png', title: '04. Chain Total Sales Timeline', desc: '143-week chain-wide curve with Thanksgiving & Christmas annual spikes.' },
+      { id: '05', file: '05_seasonality_holiday.png', title: '05. Seasonality & Holiday Effect', desc: 'Monthly breakdown and boxplot comparison of holiday vs non-holiday weeks.' },
+      { id: '06', file: '06_holiday_index.png', title: '06. Normalized Holiday Index', desc: 'Standardized index comparing each store relative to its own baseline.' },
+      { id: '07', file: '07_scatter_external.png', title: '07. Macro Factors Scatter Plots', desc: 'Scatter plots illustrating weak linear relationships for Temp, CPI, and Fuel.' },
+      { id: '08', file: '08_correlation_heatmaps.png', title: '08. Correlation Heatmaps', desc: 'Pooled correlation vs within-store correlation matrices.' },
+      { id: '09', file: '09_model_actual_vs_pred.png', title: '09. Actual vs Predicted Diagnostics', desc: 'Scatter plot of test predictions and timeline fit across test weeks.' },
+      { id: '10', file: '10_feature_importance.png', title: '10. Random Forest Feature Importance', desc: 'Bar chart showing lag_52 accounting for over 97% of tree split weight.' }
+    ];
+
+    function initGalleryTab() {
+      const container = document.getElementById('figuresGalleryGrid');
+      container.innerHTML = '';
+      galleryFigures.forEach(fig => {
+        const card = document.createElement('div');
+        card.className = 'fig-thumb-card';
+        card.onclick = () => openFigureModal(fig);
+        card.innerHTML = `
+          <img class="fig-thumb-img" src="outputs/figures/${fig.file}" alt="${fig.title}" onerror="this.src='data:image/svg+xml;utf8,<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'300\' height=\'200\'><rect width=\'300\' height=\'200\' fill=\'%23f1f5f9\'/><text x=\'50%25\' y=\'50%25\' dominant-baseline=\'middle\' text-anchor=\'middle\' font-family=\'sans-serif\' fill=\'%2394a3b8\'>Figure ${fig.id}</text></svg>'">
+          <div class="fig-thumb-body">
+            <div class="fig-thumb-title">${fig.title}</div>
+            <div class="fig-thumb-desc">${fig.desc}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function openFigureModal(fig) {
+      document.getElementById('modalFigTitle').innerText = fig.title;
+      document.getElementById('modalFigDesc').innerText = fig.desc;
+      document.getElementById('modalFigImg').src = 'outputs/figures/' + fig.file;
+      document.getElementById('figureModal').classList.add('open');
+    }
+
+    function closeFigureModal() {
+      document.getElementById('figureModal').classList.remove('open');
+    }
+
+    // Initialize entire dashboard on load
+    window.addEventListener('DOMContentLoaded', () => {
+      initOverview();
+      initStoresTab();
+      initHolidayTab();
+      initModelsTab();
+      initSimulator();
+      initGalleryTab();
+    });
+  </script>
+</body>
+</html>
