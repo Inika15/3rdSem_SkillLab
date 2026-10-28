@@ -92,18 +92,44 @@
 ### Q10: What are the main limitations of this project and how would you improve it?
 **Answer:**
 > *"1. **Evaluation Window Restriction:** Our test period ended on October 26, 2012, so it contained Labor Day but did not test Thanksgiving or Christmas.  
-> 2. **Lag Burn-in:** Using `lag_52` required sacrificing the first 52 weeks of data as history.  
+> 2. **Lag Burn-in:** Using lag_52 required sacrificing the first 52 weeks of data as history.  
 > 3. **Missing Features:** Granular department sales, markdown discounts, and competitor locations were not in the public dataset. Future improvements would incorporate LightGBM, promotional markdown flags, and multi-step rolling walk-forward validation."*
+
+### Q11: Why did you build both a Regression model and a Classification model?
+**Answer:**
+> *"Retail management operates on two different decision horizons:  
+> 1. **Financial & Budgeting Horizon (Regression):** Needs continuous dollar estimates (predicted weekly sales in US$) to forecast revenue, manage cash flows, and balance store P&L.  
+> 2. **Logistics & Operational Sizing Horizon (Classification):** Distribution center directors and store managers need a clear, actionable binary alert: **'Is next week a peak surge week (>75th percentile volume)?'** If yes, automated protocols trigger extra cross-docking bays, extended freight delivery shifts, and temporary workforce scheduling. Our Random Forest Classifier achieves **98.25% test accuracy**, **94.29% recall on surge weeks**, and an **ROC-AUC of 0.985**."*
+
+### Q12: How do you interpret the Confusion Matrix of your High-Demand Classifier?
+**Answer:**
+> *"Out of 855 unseen chronological test store-weeks:  
+> - **True Negatives (TN):** 642 normal operational weeks correctly identified (75.1% of test set).  
+> - **False Positives (FP):** Only 3 normal weeks incorrectly flagged as high demand (0.35% error rate). This proves the model almost never wastes logistics capital on false alarms.  
+> - **False Negatives (FN):** Only 12 surge weeks missed out of 210 total (1.40% error rate).  
+> - **True Positives (TP):** 198 surge weeks correctly captured ahead of time (23.2% of test set).  
+> This gives an exceptional **98.5% precision** and **96.4% F1-score**, proving that when the model sounds an alarm for a high-demand surge, store managers can trust it with 98.5% certainty."*
 
 ---
 
 ## 4. Key Performance Metric Reference Card
-| Metric | Baseline 1 (Lag-1) | Baseline 2 (Lag-52) | Linear Regression | Random Forest (Champion) |
-|---|---|---|---|---|
-| **MAE** | \$91,423 | \$75,416 | \$67,353 | **\$64,887** |
-| **RMSE** | \$144,038 | \$106,156 | **\$92,172** | \$94,056 |
-| **R²** | 0.945 | 0.970 | **0.978** | 0.977 |
-| **MAPE** | 8.42% | 6.81% | 6.68% | **5.93%** |
+
+### A. Continuous Sales Regression Benchmark (Test Set: 855 Future Store-Weeks)
+| Metric | Baseline 1 (Lag-1) | Baseline 2 (Lag-52) | Linear Regression | Ridge Regression | Random Forest (Champion 🏆) |
+|---|---|---|---|---|---|
+| **MAE** | ,423 | ,416 | ,353 | ,216 | **,897** |
+| **RMSE** | ,038 | ,156 | ,172 | **,154** | ,056 |
+| **R² Score** | 0.945 | 0.970 | 0.978 | **0.978** | 0.977 |
+| **MAPE** | 8.42% | 6.81% | 6.68% | 6.41% | **5.93%** |
+
+### B. High-Demand Surge Classification Benchmark (Test Set: 855 Future Store-Weeks)
+| Metric | Class 0 (Normal Demand) | Class 1 (High Demand Surge) | Overall Chain Score |
+|---|---|---|---|
+| **Accuracy** | — | — | **98.25%** |
+| **Precision** | 98.17% | **98.51%** | 98.25% (Weighted) |
+| **Recall** | 99.53% | **94.29%** | 98.25% (Weighted) |
+| **F1-Score** | 98.85% | **96.35%** | 98.23% (Weighted) |
+| **ROC-AUC** | — | — | **0.9854** |
 
 ---
 *Created for RVCE Applied Data Science Skill Lab Mini-Project Evaluation.*
